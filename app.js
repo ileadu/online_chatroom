@@ -15,7 +15,7 @@ var io = require('socket.io')(server);
  */
 app.set('view engine', 'jade');
 app.set('views', './views');
-
+app.use(express.static('public'));
 
 /*
  * 設定 http body parser
