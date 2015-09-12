@@ -2,10 +2,10 @@ doctype html
 html(lang="en")
     head
         title= RethinkDB && express
-        script(src="js/socket.io-1.3.6.js")
-        script(src="jquery-2.1.4.min.js")
-        script(src="js/bootstrap.min.js")
-        link(rel="stylesheet", type="text/css", href="css/bootstrap.min.css")
+        script(src="https://cdn.socket.io/socket.io-1.3.5.js")
+        script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+        link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
 
     body
         .container-fluid
@@ -13,38 +13,41 @@ html(lang="en")
                 .col-xs-12
                     .col-xs-2
                     .col-xs-8
-                        h3 請輸入資料
+                        h3 
+                            a(href='/')歡迎來到剪刀石頭布聊天室
                         hr
                         form(action='/', method='POST')
                             .form-group
-                                label 姓名
-                                input.form-control.name(name='name')
-                            .form-group
-                                label 年齡
-                                input.form-control.age(name='age')
-                            button.btn.btn-primary.btn-lg.btn-block(type='submit') 送出
+                                label 請在此輸入暱稱
+                                input.form-control.name(name='name')  
                     .col-xs-2
                 .col-xs-12
                     .col-xs-2
                     .col-xs-8
-                        h3 顯示資料
-                        hr
-                        table.table.table-striped
-                            thead
-                                tr
-                                    th 姓名
-                                    th 年齡
-                            tbody.messages
-                                each item in people
-                                    tr      
-                                        td #{item.name}
-                                        td #{item.age}
+                        form(action='/', method='POST')
+                            .form-group
+                            h3 聊天室
+                            hr
+                            table.table.table-striped
+                                thead
+                                    tr
+                                        th 姓名
+                                        th 內容
+                                tbody.messages
+                                    each item in people
+                                        tr      
+                                            td #{item.name}
+                                            td #{item.age}
+                            .form-group
+                                input.form-control.age(name='age')
+                                button.btn.btn-primary.btn-lg.btn-block(type='submit') 送出
                     .col-xs-2
-
         script(type='text/javascript').
             var socket = io('http://127.0.0.1:9291/');
             socket.on('newData', function (data) {
                 console.log(data);
                 $('.messages').prepend('<tr><td>' + data.name + '</td><td>' + data.age + '</td></tr>');
+                $('.name').val('');
+                $('.age').val('');
             });
 
