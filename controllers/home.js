@@ -4,7 +4,7 @@ var r = require('rethinkdb');
 module.exports = function (req, res, next) {
 
     r.table('people')
-        .orderBy(r.desc('date'))
+        .orderBy(r.asc('date'))
         .run(global.connection, function (err, cursor){
 
             if(err){
