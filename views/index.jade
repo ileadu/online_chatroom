@@ -42,7 +42,7 @@ html(lang="en")
                     .col-xs-2
 
         script(type='text/javascript').
-            var socket = io('http://127.0.0.1:9291/');
+            var socket = io('http://#{ip}:9291/');
             socket.on('newData', function (data) {
                 console.log(data);
                 $('.messages').prepend('<tr><td>' + data.name + '</td><td>' + data.age + '</td></tr>');
