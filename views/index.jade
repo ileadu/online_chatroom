@@ -13,34 +13,33 @@ html(lang="en")
                 .col-xs-12
                     .col-xs-2
                     .col-xs-8
-                        h3 請輸入資料
-                        hr
-                        form(action='/', method='POST')
-                            .form-group
-                                label 姓名
-                                input.form-control.name(name='name')
-                            .form-group
-                                label 年齡
-                                input.form-control.age(name='age')
-                            button.btn.btn-primary.btn-lg.btn-block(type='submit') 送出
+                        h3 
+                            a(href='/')歡迎來到剪刀石頭布聊天室  
                     .col-xs-2
                 .col-xs-12
                     .col-xs-2
                     .col-xs-8
-                        h3 顯示資料
-                        hr
-                        table.table.table-striped
-                            thead
-                                tr
-                                    th 姓名
-                                    th 年齡
-                            tbody.messages
-                                each item in people
-                                    tr      
-                                        td #{item.name}
-                                        td #{item.age}
+                        form(action='/', method='POST')
+                            .form-group
+                            h3 聊天室
+                            hr
+                            table.table.table-striped
+                                thead
+                                    tr
+                                        th 姓名
+                                        th 內容
+                                tbody.messages
+                                    each item in people
+                                        tr      
+                                            td #{item.name}
+                                            td #{item.age}
+                            .form-group
+                                label Please enter your nick name:
+                                input.form-control.name(name='name', placeholder='ex: Amber White')
+                            .form-group                            
+                                textarea.form-control.age(name='age')
+                            button.btn.btn-primary.btn-lg.pull-right(type='submit') send
                     .col-xs-2
-
         script(type='text/javascript').
             var socket = io('http://#{ip}:9291/');
             socket.on('newData', function (data) {
