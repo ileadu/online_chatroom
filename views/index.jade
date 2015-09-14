@@ -14,12 +14,18 @@ html(lang="en")
                     .col-xs-2
                     .col-xs-8
                         h3 
-                            a(href='/')歡迎來到剪刀石頭布聊天室  
+                            a(href='/') 歡迎來到剪刀石頭布聊天室
                     .col-xs-2
                 .col-xs-12
                     .col-xs-2
                     .col-xs-8
                         form(action='/', method='POST')
+                            .form-group
+                                label Please enter your nick name:
+                                input.form-control.name(name='name', placeholder='ex: Amber White')
+                            .form-group
+                                textarea.form-control.msg(name='msg')
+                                button.btn.btn-primary.btn-lg.pull-right(type='submit') send
                             .form-group
                             h3 聊天室
                             hr
@@ -28,22 +34,18 @@ html(lang="en")
                                     tr
                                         th 姓名
                                         th 內容
+                                        th 時間
                                 tbody.messages
                                     each item in people
                                         tr      
                                             td #{item.name}
-                                            td #{item.age}
-                            .form-group
-                                label Please enter your nick name:
-                                input.form-control.name(name='name', placeholder='ex: Amber White')
-                            .form-group                            
-                                textarea.form-control.age(name='age')
-                            button.btn.btn-primary.btn-lg.pull-right(type='submit') send
+                                            td #{item.msg}
+                                            td #{item.date}
                     .col-xs-2
         script(type='text/javascript').
             var socket = io('http://#{ip}:9291/');
             socket.on('newData', function (data) {
-                console.log(data);
-                $('.messages').append('<tr><td>' + data.name + '</td><td>' + data.age + '</td></tr>');
+                var iso = new Date().toISOString().match(/(\d{4}\-\d{2}\-\d{2})T(\d{2}:\d{2}:\d{2})/);
+                $('.messages').prepend('<tr><td>' + data.name + '</td><td>' + data.msg + '</td><td>' + iso[1] + ' ' + iso[2] + '</td></tr>');
             });
 

@@ -5,13 +5,14 @@ module.exports = function (req, res, next) {
 
         // 處理 post 過來的資料
         var name = req.body.name || 'NO_NAME';
-        var age = req.body.age || 'NO_AGE';
+        var msg = req.body.msg || 'NO_MSG';
+	var iso = new Date().toISOString().match(/(\d{4}\-\d{2}\-\d{2})T(\d{2}:\d{2}:\d{2})/);
 
         // 將資料存入 db 內
         r.table('people').insert({
             name: name,
-            age: age,
-            date: new Date()
+            msg: msg,
+            date: iso[1] + " " + iso[2]
         }, { returnChanges: true }).run(global.connection, function (err, doc) {
 
             if(err){

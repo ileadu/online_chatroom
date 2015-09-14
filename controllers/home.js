@@ -16,7 +16,7 @@ module.exports = function (req, res, next) {
             break;
     }
     r.table('people')
-        .orderBy(r.asc('date'))
+        .orderBy(r.desc('date'))
         .run(global.connection, function (err, cursor){
 
             if(err){
